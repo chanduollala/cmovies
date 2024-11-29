@@ -1,0 +1,98 @@
+<div class="side-nav">
+<!--  <div class="row center-y logo-item">-->
+<!--    <div class="logo ">-->
+<!--      <mat-icon >eco</mat-icon>-->
+<!--    </div>-->
+<!--    <div class="logo-text">-->
+<!--      zloto-->
+<!--    </div>-->
+<!--    <div class="spacer-x"></div>-->
+<!--    <div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+
+
+  <div class="search-bar">
+    <input-outline
+      [box-height]="36"
+      placeholder="Search menu"
+      [formControl]="search_text"
+    >
+      <ng-template #icon>
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 30 30" fill="#aaaaaa">
+          <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z"></path>
+        </svg>
+      </ng-template>
+
+    </input-outline>
+  </div>
+
+  <div class="nav-items"
+       (mouseenter)="nav_hover = true"
+       (mouseleave)="exitNav()"
+  >
+    @if (search_menu_items.length> 0) {
+      @for (menu_item of search_menu_items; track menu_item) {
+        <div
+          (mouseenter)="(menu_item.children.length>0)?expandNavItem(menu_item):''"
+          (mouseleave)="(menu_item.children.length>0 && nav_hover)?collapseNavItem(menu_item):''"
+        >
+
+        <div
+          class="nav-item"
+          [class.nav-item-selected]="router.url.slice(1)  === menu_item.URL "
+          [style]="(menu_item.clicked)?{'background-color': 'rgba(189,189,189,0.33)'}:{}"
+          (click)="navigate(menu_item)"
+
+        >
+          <mat-icon>{{menu_item.icon}}</mat-icon>
+          <div>{{menu_item.name}}</div>
+          <div class="spacer-x"></div>
+          <mat-icon>
+            {{ (menu_item.children.length>0)?(menu_item.show_children || search_text.value)?"keyboard_arrow_down":"keyboard_arrow_right":"" }}
+          </mat-icon>
+        </div>
+        <div
+          [style]="(menu_item.clicked)?{'background-color': '#f6f6f6'}:{}"
+        >
+          @if(menu_item.show_children || search_text.value!="" ) {
+            @for (child_item of (search_text.value=="")?(menu_item.children):(menu_item.search_children); track child_item) {
+              <div
+                class="nav-item nav-item-child"
+                [class.nav-item-selected]="router.url.slice(1)  === child_item.URL"
+                (click)="navigate(child_item, menu_item)"
+              >
+                <div>{{child_item.name}}</div>
+              </div>
+            }
+          }
+        </div>
+        </div>
+      }
+    }
+
+  </div>
+
+  <div class="spacer-y"></div>
+
+
+
+  <div class="divider-h"></div>
+
+
+  <div style="margin-top: 10px">
+    @for (menu_item of fixed_menu_items; track menu_item) {
+      <div
+        class="nav-item"
+        [class.nav-item-selected]="router.url.slice(1) == menu_item.URL"
+        (click)="navigate(menu_item)"
+      >
+        <mat-icon>{{menu_item.icon}}</mat-icon>
+        <div>{{menu_item.name}}</div>
+      </div>
+    }
+  </div>
+
+
+</div>

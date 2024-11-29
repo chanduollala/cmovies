@@ -1,0 +1,78 @@
+<div style="position: relative; width: 100%">
+  <div class="label">
+    {{title}}
+  </div>
+  <!--box-->
+  <div [ngStyle]='{"height": box_height!.toString()+"px"}' class="input-box-container {{title+'box'}}" style="width: 100% " (click)="!disabled?(show_options=!show_options):{}">
+
+    @if (!selected_option) {
+
+      <div class="input-box center-y">
+        <div [ngStyle]="{'font-size': (font_size?font_size:14).toString()+'px'}"  >{{placeholder}}</div>
+          <mat-icon>expand_more</mat-icon>
+      </div>
+    }
+
+
+    @if (selected_option) {
+      <div class="option" [style]="{'padding': ((box_height! - 2* (font_size?font_size:12))/2).toString() + 'px 2px'}">
+        @if (option_leading) {
+          <div class="leading" [ngStyle]="{'font-size': (font_size?font_size:12).toString()+'px'}">
+            {{selected_option[option_leading]}}
+          </div>
+        }
+        <div class="title" [ngStyle]="{'font-size': (font_size?font_size:14).toString()+'px'}">
+          {{(option_title)?selected_option[option_title]:selected_option}}
+        </div>
+        <div style="flex: 1;"></div>
+        @if (option_trailing) {
+          <div class="trailing" [ngStyle]="{'font-size': (font_size?font_size:13).toString()+'px'}">
+            {{selected_option[option_trailing]}}
+          </div>
+        }
+
+      </div>
+
+    }
+  </div>
+
+
+
+  <!--options-->
+  @if (show_options) {
+    <div class="options-container {{title+'options'}}" [ngStyle]="{ 'max-height':(options_height?options_height:200).toString()+'px'}">
+      @if (auto_complete) {
+        <div class="search-bar">
+          <input-outline placeholder="{{(auto_complete_label)?auto_complete_label:'Search'}}" [box-height]="35" [formControl]="autoCompleteSearchValue"></input-outline>
+        </div>
+      }
+      @for (option of (auto_complete && autoCompleteSearchValue.value!=null)?filteredOptions:options; track option) {
+        <div class="option" [style]="{'padding': ((box_height! - 1.6* (font_size?font_size:12))/2).toString() + 'px 2px'}" (click)="select(option)">
+          @if (option_leading) {
+            <div class="leading" [ngStyle]="{'font-size': (font_size?font_size:12).toString()+'px'}">
+              {{option[option_leading]}}
+            </div>
+          }
+          <div class="title" [ngStyle]="{'font-size': (font_size?font_size:14).toString()+'px'}">
+            {{(option_title)?option[option_title]:option}}
+          </div>
+          <div style="flex: 1;"></div>
+          @if (option_trailing) {
+            <div class="trailing" [ngStyle]="{'font-size': (font_size?font_size:14).toString()+'px'}">
+              {{option[option_trailing]}}
+            </div>
+          }
+        </div>
+      }
+      @if (((auto_complete && autoCompleteSearchValue.value!='')?filteredOptions:options)?.length==0) {
+        <div class="option">
+          <div class="title" style="color: #555555; font-size: 12px">
+            No options found
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<!--'width':options_width!.toString()+'px',-->

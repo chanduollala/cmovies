@@ -1,0 +1,16 @@
+<div style="width: 100%">
+  @if (title) {
+    <div class="label">
+      {{title}}
+    </div>
+  }
+  <div [ngStyle]='{"height": box_height!.toString()+"px"}' class="input-box center-y">
+    @if (icon){
+      <ng-container [ngTemplateOutlet]="icon"></ng-container>
+    }
+    <input [type]="(hide)?'password':'text'" [placeholder]="placeholder?placeholder:''" [formControl]="entered_text" [disabled]="disabled" [ngStyle]="{'font-size': (fontSize?fontSize:14).toString()+'px', 'font-weight': 350}">
+    @if (password && entered_text.value!.length>0) {
+      <div (click)="hide=!hide" class="f-12" style="margin-right: 12px; color: darkslateblue">{{(hide)?'Show':'Hide'}}</div>
+    }
+  </div>
+</div>

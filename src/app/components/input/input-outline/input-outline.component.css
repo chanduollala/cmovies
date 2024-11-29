@@ -1,0 +1,28 @@
+.input-box{
+  border-radius: 8px;
+  border: 1px solid #CCC;
+  background: #FFF;
+  width: calc(100% - 8px);
+  padding-left: 6px;
+
+}
+
+.input-box input{
+  border-radius: 8px;
+  background-color: white;
+  border: none transparent;
+  outline: none;
+  height: calc(100% - 2px);
+  width: calc(100% - 18px);
+}
+
+.label{
+  color: #000;
+  font-family: League Spartan, serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 350 !important;
+  line-height: normal;
+  margin-left: 8px;
+  margin-bottom: 2px;
+}

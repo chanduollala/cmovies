@@ -1,0 +1,26 @@
+.button{
+  width: min-content;
+  white-space: nowrap;
+  padding-left: 16px
+}
+
+@media (max-width: 768px) {
+  .label{
+    display: none;
+  }
+
+  .button{
+    padding-left: 0;
+    height: 48px;
+    width: 48px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    padding-right: 0px;
+  }
+
+  .button mat-icon{
+    font-size: 24px !important;
+    padding-left: 8px;
+  }
+}

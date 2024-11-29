@@ -1,0 +1,6 @@
+@for (option of options_loaded; track option; let i = $index) {
+  <div class="checklist-item">
+    <input type="checkbox" [(ngModel)]="options_loaded[i].selected" (change)="valueUpdated($event, i)">
+    <div >{{option.object[display]}}</div>
+  </div>
+}

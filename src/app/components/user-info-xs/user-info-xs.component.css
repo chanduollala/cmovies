@@ -1,0 +1,10 @@
+.container-1 {
+}
+
+
+.user-avatar{
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: clip;
+}
